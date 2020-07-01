@@ -1,0 +1,12 @@
+name: 'aws-ssm-actions'
+description: 'GitHub Actions for AWS SSM'
+inputs:
+  PATH:
+    description: 'Set parameter path for params you want exported to env using ::set-env.'
+    required: true
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
+branding:
+  icon: 'lock'
+  color: 'orange'
