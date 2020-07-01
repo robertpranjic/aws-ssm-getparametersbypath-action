@@ -27,10 +27,16 @@ const ssm = new aws.SSM({
 const getParametersByPath = (ssm, path) => ssm.getParametersByPath({ Path: path });
 
 getParametersByPath(ssm, path).promise().then(response => {
+  core.startGroup('Exports');
+
   response.Parameters.forEach((parameter) => {
     const sanitizedName = parameter.Name.replace(path, '').replace('/', '');
+
+    core.info(`${exportPrefix}${sanitizedName}=${parameter.Value}`);
     core.exportVariable(`${exportPrefix}${sanitizedName}`, parameter.Value);
   });
+
+  core.endGroup();
 }).catch(err => {
   core.setFailed(err);
 });
