@@ -24,7 +24,7 @@ const ssm = new aws.SSM({
   region: AWS_DEFAULT_REGION,
 });
 
-const getParametersByPath = async (ssm, path) => ssm.getParametersByPath({ Path: path });
+const getParametersByPath = (ssm, path) => ssm.getParametersByPath({ Path: path });
 
 getParametersByPath(ssm, path).promise().then(response => {
   response.Parameters.forEach((parameter) => {
