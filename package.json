@@ -1,7 +1,7 @@
 {
   "name": "aws-secrets-manager-actions",
   "version": "1.2.0",
-  "description": "GitHub Actions for AWS Secrets Manager",
+  "description": "GitHub Actions for AWS SSM getParametersByPath",
   "main": "index.js",
   "scripts": {
     "lint": "eslint index.js index.test.js",
@@ -10,20 +10,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/say8425/aws-secrets-manager-actions.git"
+    "url": "git+https://github.com/expororpranjic/aws-ssm-getparametersbypath-action.git"
   },
   "keywords": [
     "aws",
     "actions",
     "github",
-    "secrets-manager"
+    "ssm",
+    "systems-manager",
+    "parameter-store"
   ],
-  "author": "Penguin",
+  "author": "Robert Pranjic",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/say8425/aws-secrets-manager-actions/issues"
-  },
-  "homepage": "https://github.com/say8425/aws-secrets-manager-actions",
+  "homepage": "https://github.com/expororpranjic/aws-ssm-getparametersbypath-action",
   "dependencies": {
     "@actions/core": "^1.2.4",
     "aws-sdk": "^2.668.0"
