@@ -4,6 +4,10 @@ inputs:
   PATH:
     description: 'Set parameter path for params you want exported to env using ::set-env.'
     required: true
+  EXPORT_PREFIX:
+    description: 'Set prefix for the env export variable name. Default: SSM_PARAM_{VARIABLE_NAME}'
+    required: true
+    default: 'SSM_PARAM_'
 runs:
   using: 'node12'
   main: 'dist/index.js'

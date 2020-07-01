@@ -6,6 +6,7 @@ const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
 const AWS_DEFAULT_REGION = process.env.AWS_DEFAULT_REGION;
 
 const path = core.getInput('PATH');
+const exportPrefix = core.getInput('EXPORT_PREFIX');
 
 if (!AWS_ACCESS_KEY_ID) {
   core.setFailed('The env AWS_ACCESS_KEY_ID was not set.');
@@ -28,7 +29,7 @@ const getParametersByPath = async (ssm, path) => ssm.getParametersByPath({ Path:
 getParametersByPath(ssm, path).promise().then(response => {
   response.Parameters.forEach((parameter) => {
     const sanitizedName = parameter.Name.replace(path, '').replace('/', '');
-    core.exportVariable(sanitizedName, parameter.Value);
+    core.exportVariable(`${exportPrefix}${sanitizedName}`, parameter.Value);
   });
 }).catch(err => {
   core.setFailed(err);
