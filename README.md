@@ -2,7 +2,7 @@
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/say8425/aws-secrets-manager-actions/blob/master/LICENSE)
 
-This GitHub Action helps you fetch your parameters that stored in [AWS SSM](https://aws.amazon.com/systems-manager) to environment values.
+This GitHub Action helps you fetch your parameters that are stored in [AWS SSM](https://aws.amazon.com/systems-manager) and export them to environment values.
 
 ## Usage
 
