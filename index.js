@@ -41,10 +41,13 @@ getParametersByPath(ssm, path).promise().then(response => {
     core.exportVariable(`${exportPrefix}${sanitizedName}`, parameter.Value);
   });
 
-  if(!response.NextToken) {
+  core.info(response.NextToken);
+
+  if(!!response.NextToken) {
+    getParametersByPath(ssm, path, response.NextToken);
+  } else {
     core.endGroup();
   }
-  getParametersByPath(ssm, path, response.NextToken);
 }).catch(err => {
   core.setFailed(err);
 });
