@@ -27,7 +27,6 @@ const ssm = new aws.SSM({
 const getParametersByPath = (ssm, path, nextToken = undefined) => ssm.getParametersByPath({
   Path: path,
   WithDecryption: true,
-  MaxResults: 100,
   NextToken: nextToken,
 });
 
