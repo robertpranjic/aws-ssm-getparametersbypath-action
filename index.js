@@ -27,7 +27,7 @@ const ssm = new aws.SSM({
 const getParametersByPath = (ssm, path, nextToken = undefined) => ssm.getParametersByPath({
   Path: path,
   WithDecryption: true,
-  MaxResults: 10,
+  MaxResults: 100,
   NextToken: nextToken,
 });
 
@@ -40,8 +40,6 @@ const exportVariables = (nextToken) => getParametersByPath(ssm, path, nextToken)
     core.info(`${exportPrefix}${sanitizedName}=${parameter.Value.slice(0, 3)}`);
     core.exportVariable(`${exportPrefix}${sanitizedName}`, parameter.Value);
   });
-
-  core.info(response.NextToken);
 
   if(!!response.NextToken) {
     exportVariables(response.NextToken);
