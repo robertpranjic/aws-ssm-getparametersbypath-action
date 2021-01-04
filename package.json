@@ -24,7 +24,7 @@
   "license": "MIT",
   "homepage": "https://github.com/expororpranjic/aws-ssm-getparametersbypath-action",
   "dependencies": {
-    "@actions/core": "^1.2.4",
+    "@actions/core": "^1.2.6",
     "aws-sdk": "^2.668.0"
   },
   "devDependencies": {
