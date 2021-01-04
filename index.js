@@ -31,7 +31,7 @@ const getParametersByPath = (ssm, path, nextToken = undefined) => ssm.getParamet
   NextToken: nextToken,
 });
 
-getParametersByPath(ssm, path).promise().then(response => {
+const exportVariables = (nextToken) => getParametersByPath(ssm, path, nextToken).promise().then(response => {
   core.startGroup('Exports');
 
   response.Parameters.forEach((parameter) => {
@@ -44,7 +44,7 @@ getParametersByPath(ssm, path).promise().then(response => {
   core.info(response.NextToken);
 
   if(!!response.NextToken) {
-    getParametersByPath(ssm, path, response.NextToken);
+    exportVariables(response.NextToken);
   } else {
     core.endGroup();
   }
@@ -52,4 +52,6 @@ getParametersByPath(ssm, path).promise().then(response => {
   core.setFailed(err);
 });
 
-exports.getParametersByPath = getParametersByPath;
+exportVariables();
+
+exports.exportVariables = exportVariables;
