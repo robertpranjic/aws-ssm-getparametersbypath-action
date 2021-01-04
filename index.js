@@ -24,7 +24,12 @@ const ssm = new aws.SSM({
   region: AWS_DEFAULT_REGION,
 });
 
-const getParametersByPath = (ssm, path) => ssm.getParametersByPath({ Path: path });
+const getParametersByPath = (ssm, path, nextToken = undefined) => ssm.getParametersByPath({
+  Path: path,
+  WithDecryption: true,
+  MaxResults: 10,
+  NextToken: nextToken,
+});
 
 getParametersByPath(ssm, path).promise().then(response => {
   core.startGroup('Exports');
@@ -32,11 +37,14 @@ getParametersByPath(ssm, path).promise().then(response => {
   response.Parameters.forEach((parameter) => {
     const sanitizedName = parameter.Name.replace(path, '').replace('/', '');
 
-    core.info(`${exportPrefix}${sanitizedName}=${parameter.Value}`);
+    core.info(`${exportPrefix}${sanitizedName}=${parameter.Value.slice(0, 3)}`);
     core.exportVariable(`${exportPrefix}${sanitizedName}`, parameter.Value);
   });
 
-  core.endGroup();
+  if(!response.NextToken) {
+    core.endGroup();
+  }
+  getParametersByPath(ssm, path, response.NextToken);
 }).catch(err => {
   core.setFailed(err);
 });
