@@ -3,6 +3,7 @@ const aws = require('aws-sdk');
 
 const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
 const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
+const AWS_SESSION_TOKEN = process.env.AWS_SESSION_TOKEN;
 const AWS_DEFAULT_REGION = process.env.AWS_DEFAULT_REGION;
 
 const path = core.getInput('PATH');
@@ -14,6 +15,9 @@ if (!AWS_ACCESS_KEY_ID) {
 if (!AWS_SECRET_ACCESS_KEY) {
   core.setFailed('The env AWS_SECRET_ACCESS_KEY was not set.');
 }
+if (!AWS_SESSION_TOKEN) {
+  core.setFailed('The env AWS_SESSION_TOKEN was not set.');
+}
 if (!AWS_DEFAULT_REGION) {
   core.setFailed('The env AWS_DEFAULT_REGION was not set.');
 }
@@ -21,6 +25,7 @@ if (!AWS_DEFAULT_REGION) {
 const ssm = new aws.SSM({
   accessKeyId: AWS_ACCESS_KEY_ID,
   secretAccessKey: AWS_SECRET_ACCESS_KEY,
+  aws_session_token: AWS_SESSION_TOKEN,
   region: AWS_DEFAULT_REGION,
 });
 
